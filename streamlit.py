@@ -1,5 +1,5 @@
 import streamlit as st
-# import osmnx as ox
+import osmnx as ox
 import pandas as pd
 import geopandas as gpd
 
@@ -70,7 +70,7 @@ test_filtered["geometry_centroid_latlon"] = (
     test_filtered["geometry_centroid"].to_crs(epsg=4326)
 )
 
-sa2_gdf = gpd.read_file("shape_files/SA2_2021_AUST_SHP_GDA2020/SA2_2021_AUST_GDA2020.shp")
+sa2_gdf = gpd.read_file("data/SA2_2021_AUST_SHP_GDA2020/SA2_2021_AUST_GDA2020.shp")
 
 
 
@@ -80,7 +80,7 @@ sa2_nsw = sa2_gdf[sa2_gdf['STE_NAME21'] == 'New South Wales']
 
 sa2 = sa2_nsw[sa2_nsw['GCC_NAME21'] == 'Greater Sydney']
 
-census_data = pd.read_csv('shape_files/2021Census_G01_NSW_SA2.csv')
+census_data = pd.read_csv('data/2021Census_G01_NSW_SA2.csv')
 sa2=sa2[['SA2_CODE21', 'SA2_NAME21', 'geometry']]
 census = census_data[['SA2_CODE_2021', 'Tot_P_P']].copy()
 census['SA2_CODE21']= census['SA2_CODE_2021'].astype(str)

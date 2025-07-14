@@ -1,0 +1,11 @@
+streamlit
+osmnx
+pandas
+geopandas
+streamlit-folium
+folium
+scikit-learn
+matplotlib
+contextily
+adjustText
+pyproj

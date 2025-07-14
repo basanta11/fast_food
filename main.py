@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import pyproj
+import osmnx as ox
 from shapely.geometry import Point
 from shapely.ops import transform
 
