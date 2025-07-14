@@ -172,68 +172,68 @@ with st.spinner("🔄 Rendering location map..."):
     plt.tight_layout()
     st.pyplot(fig)
 
-# -------------------- INTERACTIVE MAP --------------------
-suburb_list_proj_new=suburb_list_proj.copy()
-st.markdown("## 🗺️ Interactive Map – Click to Get Suburb Recommendation")
+# # -------------------- INTERACTIVE MAP --------------------
+# suburb_list_proj_new=suburb_list_proj.copy()
+# st.markdown("## 🗺️ Interactive Map – Click to Get Suburb Recommendation")
 
-with st.spinner("🔄 Loading interactive map..."):
-    m = folium.Map(location=[-33.87, 151.21], zoom_start=10)
-    for _, row in suburb_list_proj_new.iterrows():
-        folium.GeoJson(row["geometry"],
-                       name=row.get("SA2_NAME21", "Unknown"),
-                       tooltip=row.get("SA2_NAME21", "Unknown"),
-                        style_function=lambda x: {
-                        'color': 'black',
-                        'weight': 1,
-                        'fillOpacity': 1
-                        }).add_to(m)
+# with st.spinner("🔄 Loading interactive map..."):
+#     m = folium.Map(location=[-33.87, 151.21], zoom_start=10)
+#     for _, row in suburb_list_proj_new.iterrows():
+#         folium.GeoJson(row["geometry"],
+#                        name=row.get("SA2_NAME21", "Unknown"),
+#                        tooltip=row.get("SA2_NAME21", "Unknown"),
+#                         style_function=lambda x: {
+#                         'color': 'black',
+#                         'weight': 1,
+#                         'fillOpacity': 1
+#                         }).add_to(m)
 
-    map_data = st_folium(m, width=700, height=500)
+#     map_data = st_folium(m, width=700, height=500)
 
-    if map_data and map_data["last_clicked"]:
-        lat, lon = map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"]
-        click_point = Point(lon, lat)
-        project = pyproj.Transformer.from_crs("EPSG:4326", suburb_list_proj_new.crs, always_xy=True).transform
-        click_point_proj = transform(project, click_point)
-        matched = suburb_list_proj_new[suburb_list_proj_new.contains(click_point_proj)]
+#     if map_data and map_data["last_clicked"]:
+#         lat, lon = map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"]
+#         click_point = Point(lon, lat)
+#         project = pyproj.Transformer.from_crs("EPSG:4326", suburb_list_proj_new.crs, always_xy=True).transform
+#         click_point_proj = transform(project, click_point)
+#         matched = suburb_list_proj_new[suburb_list_proj_new.contains(click_point_proj)]
 
-        if not matched.empty:
-            row = matched.iloc[0]
-            st.success(f"📍 You clicked inside: {row['SA2_NAME21']}")
-            st.write(f"**Location Score:** {row['location_score']:.2f}")
-            stats = suburb_list_proj_new['location_score'].describe()
+#         if not matched.empty:
+#             row = matched.iloc[0]
+#             st.success(f"📍 You clicked inside: {row['SA2_NAME21']}")
+#             st.write(f"**Location Score:** {row['location_score']:.2f}")
+#             stats = suburb_list_proj_new['location_score'].describe()
 
-            low_thresh = stats['25%']     # ≈ 0.075
-            med_thresh = stats['50%']     # ≈ 0.126
-            high_thresh = stats['75%'] 
-            if row['location_score'] >= high_thresh:
-                st.success("✅ Excellent location to open a venue!")
-            elif row['location_score'] >= med_thresh:
-                st.info("🟡 Moderately suitable area.")
-            elif row['location_score'] < low_thresh:
-                st.info("🟡 Low suitable area.")
-            else:
-                st.warning("🔴 Not ideal based on the current data.")
-             # Create new map with highlight
-            m_highlight = folium.Map(location=[lat, lon], zoom_start=12)
-            folium.Marker([lat, lon], tooltip=row['SA2_NAME21']).add_to(m_highlight)
+#             low_thresh = stats['25%']     # ≈ 0.075
+#             med_thresh = stats['50%']     # ≈ 0.126
+#             high_thresh = stats['75%'] 
+#             if row['location_score'] >= high_thresh:
+#                 st.success("✅ Excellent location to open a venue!")
+#             elif row['location_score'] >= med_thresh:
+#                 st.info("🟡 Moderately suitable area.")
+#             elif row['location_score'] < low_thresh:
+#                 st.info("🟡 Low suitable area.")
+#             else:
+#                 st.warning("🔴 Not ideal based on the current data.")
+#              # Create new map with highlight
+#             m_highlight = folium.Map(location=[lat, lon], zoom_start=12)
+#             folium.Marker([lat, lon], tooltip=row['SA2_NAME21']).add_to(m_highlight)
 
-            # Add highlighted polygon
-            folium.GeoJson(
-                row['geometry'],
-                name="Selected Suburb",
-                style_function=lambda x: {
-                    'fillColor': 'yellow',
-                    'color': 'red',
-                    'weight': 3,
-                    'fillOpacity': 0.3,
-                },
-                tooltip=row['SA2_NAME21']
-            ).add_to(m_highlight)
+#             # Add highlighted polygon
+#             folium.GeoJson(
+#                 row['geometry'],
+#                 name="Selected Suburb",
+#                 style_function=lambda x: {
+#                     'fillColor': 'yellow',
+#                     'color': 'red',
+#                     'weight': 3,
+#                     'fillOpacity': 0.3,
+#                 },
+#                 tooltip=row['SA2_NAME21']
+#             ).add_to(m_highlight)
 
-            st.markdown("### 🔎 Highlighted Suburb")
-            st_folium(m_highlight, width=700, height=500)
+#             st.markdown("### 🔎 Highlighted Suburb")
+#             st_folium(m_highlight, width=700, height=500)
 
-        else:
-            st.warning("⚠️ You clicked outside the suburb boundaries.")
+#         else:
+#             st.warning("⚠️ You clicked outside the suburb boundaries.")
         
