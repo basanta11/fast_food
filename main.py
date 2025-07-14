@@ -123,11 +123,14 @@ candidate_suburbs = suburb_list_proj[
 ].copy()
 top_areas = candidate_suburbs.sort_values(by='pop_density', ascending=False).head(3)
 top_areas['Nearest_franchise_location(in km)']=top_areas['min_dist_to_fastfood_km']
+top_areas['Suburb Name']=top_areas['SA2_NAME21']
+top_areas['Population density']=top_areas['pop_density']
+
 
 # ----------------- SHOW MAP + RECOMMENDATIONS -----------------------
 
 st.markdown("## 📍 Suggested Locations for New Outlet")
-st.dataframe(top_areas[['SA2_NAME21', 'pop_density', 'Nearest_franchise_location(in km)', 'location_score']])
+st.dataframe(top_areas[['Suburb Name', 'Population density', 'Nearest_franchise_location(in km)', 'location_score']].reset_index(drop=True))
 
 with st.spinner("🔄 Rendering location map..."):
     fast_food_wm = fast_food.to_crs(epsg=3857)
@@ -144,10 +147,11 @@ with st.spinner("🔄 Rendering location map..."):
     for idx, row in top_areas_wm.iterrows():
         texts.append(
             plt.text(
-                row.geometry.centroid.x + 1000,
-                row.geometry.centroid.y + 1000,
+                row.geometry.centroid.x + 5000 ,
+                row.geometry.centroid.y + 5000,
                 row['SA2_NAME21'],
-                fontsize=14, color='red'
+                fontsize=12, color='purple', ha='left', va='center',
+                bbox=dict(facecolor='white', edgecolor='gray', boxstyle='round,pad=0.3')
             )
         )
 

@@ -255,47 +255,47 @@ with st.spinner("🔄 Loading data... please wait"):
                     name=row.get("SA2_NAME21", "Unknown"),
                     tooltip=row.get("SA2_NAME21", "Unknown")).add_to(m)
 
-# Enable free map clicking to get lat/lon
-    st.markdown("### Click anywhere on the map to get a recommendation")
-    map_data = st_folium(m, width=600, height=400)
-# Handle map click
-    if map_data and map_data["last_clicked"]:
-        lat = map_data["last_clicked"]["lat"]
-        lon = map_data["last_clicked"]["lng"]
+# # Enable free map clicking to get lat/lon
+#     st.markdown("### Click anywhere on the map to get a recommendation")
+#     map_data = st_folium(m, width=600, height=400)
+# # Handle map click
+#     if map_data and map_data["last_clicked"]:
+    #     lat = map_data["last_clicked"]["lat"]
+    #     lon = map_data["last_clicked"]["lng"]
 
-    # Show the clicked coordinates
-        st.write(f"🧭 You clicked: Latitude = {lat:.5f}, Longitude = {lon:.5f}")
+    # # Show the clicked coordinates
+    #     st.write(f"🧭 You clicked: Latitude = {lat:.5f}, Longitude = {lon:.5f}")
 
-    # Find nearest suburb centroid
-        from shapely.geometry import Point
-        from shapely.ops import transform
+    # # Find nearest suburb centroid
+    #     from shapely.geometry import Point
+    #     from shapely.ops import transform
 
-        click_point = Point(lon, lat)
+    #     click_point = Point(lon, lat)
 
-        project = pyproj.Transformer.from_crs("EPSG:4326", new_list.crs, always_xy=True).transform
-        click_point_proj = transform(project, click_point)
+    #     project = pyproj.Transformer.from_crs("EPSG:4326", new_list.crs, always_xy=True).transform
+    #     click_point_proj = transform(project, click_point)
 
-        matched_suburb = new_list[new_list.contains(click_point_proj)]
-        matched_suburb_display = matched_suburb.copy()
-        matched_suburb_display['geometry'] = matched_suburb_display['geometry'].astype(str)
+    #     matched_suburb = new_list[new_list.contains(click_point_proj)]
+    #     matched_suburb_display = matched_suburb.copy()
+    #     matched_suburb_display['geometry'] = matched_suburb_display['geometry'].astype(str)
 
-        if not matched_suburb.empty:
+    #     if not matched_suburb.empty:
       
 
 
-            suburb_name = matched_suburb_display.iloc[0]["SA2_NAME21"]
-            location_score = matched_suburb_display.iloc[0]["location_score"]
+    #         suburb_name = matched_suburb_display.iloc[0]["SA2_NAME21"]
+    #         location_score = matched_suburb_display.iloc[0]["location_score"]
 
-        # Display recommendation    
-            st.markdown("## 📌 Nearest Suburb")
-            st.write(f"**Suburb:** {suburb_name}")
-            st.write(f"**Location Score:** {location_score:.2f}")
+    #     # Display recommendation    
+    #         st.markdown("## 📌 Nearest Suburb")
+    #         st.write(f"**Suburb:** {suburb_name}")
+    #         st.write(f"**Location Score:** {location_score:.2f}")
 
-            if location_score >= 0.15:
-                st.success("✅ Excellent location to open a venue!")
-            elif location_score >= 0.10:
-                st.info("🟡 Moderately suitable area.")
-            else:
-                st.warning("🔴 Not ideal based on the current data.")
-        else:
-            st.warning("⚠️ Click was outside the suburb boundaries.")
+    #         if location_score >= 0.15:
+    #             st.success("✅ Excellent location to open a venue!")
+    #         elif location_score >= 0.10:
+    #             st.info("🟡 Moderately suitable area.")
+    #         else:
+    #             st.warning("🔴 Not ideal based on the current data.")
+    #     else:
+    #         st.warning("⚠️ Click was outside the suburb boundaries.")
