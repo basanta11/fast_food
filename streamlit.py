@@ -1,5 +1,5 @@
 import streamlit as st
-import osmnx as ox
+# import osmnx as ox
 import pandas as pd
 import geopandas as gpd
 
@@ -20,7 +20,7 @@ import pyproj
 st.title("Fast Food Locations in Sydney")
 
 # Set up OSMnx
-ox.settings.log_console = False
+# ox.settings.log_console = False
 
 # Tags for fast food places
 tags = {"amenity": "fast_food", "name": ["McDonald's", "KFC", "Subway"]}
