@@ -2,6 +2,8 @@
 
 [![View Interactive Streamlit App](https://img.shields.io/badge/Streamlit-Demo-orange?logo=streamlit)](https://fastfood-tzahejbu6bkyngfgylecgx.streamlit.app/)
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/12xvCIPyhirh0Q1bNXtO_e6jN5wZmzaBi?usp=sharing)
+
+[![View on Kaggle](https://img.shields.io/badge/Kaggle-Notebook-blue?logo=kaggle)](https://www.kaggle.com/code/basantadahal/franchise-new-location-predictor)
   
 
 

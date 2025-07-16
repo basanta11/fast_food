@@ -28,6 +28,7 @@ st.markdown("---")
 # Links to GitHub and Colab
 st.markdown('[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/12xvCIPyhirh0Q1bNXtO_e6jN5wZmzaBi?usp=sharing)')
 st.markdown('[![GitHub Repo](https://img.shields.io/badge/GitHub-fast_food-blue?logo=github)](https://github.com/basanta11/fast_food)')
+st.markdown('[![View on Kaggle](https://img.shields.io/badge/Kaggle-Notebook-blue?logo=kaggle)](https://www.kaggle.com/code/basantadahal/franchise-new-location-predictor)')
 
 # ------------------- LOAD & PREP DATA ------------------
 
