@@ -17,12 +17,12 @@ from matplotlib.lines import Line2D
 from adjustText import adjust_text
 
 # --------------------- PAGE CONFIG ---------------------
-st.set_page_config(page_title="Fast Food Optimizer",layout="centered",  # ← Default (normal) layout
+st.set_page_config(page_title=" New Fast Food Location Predictor ",layout="centered",  # ← Default (normal) layout
     initial_sidebar_state="auto")
 
 # --------------------- HEADER --------------------------
-st.title("🍔 Franchise Fast Food Location Optimizer – Sydney")
-st.markdown("This tool analyzes population density and other franchise location to recommend ideal locations for new venues in Greater Sydney.")
+st.title("🍔 New Franchise Fast Food Location Predictor – Sydney")
+st.markdown("This tool analyzes population census and other franchise location data to recommend ideal locations for new venues in Greater Sydney.")
 st.markdown("---")
 
 # Links to GitHub and Colab
