@@ -25,6 +25,10 @@ st.title("🍔 Franchise Fast Food Location Optimizer – Sydney")
 st.markdown("This tool analyzes population density and other franchise location to recommend ideal locations for new venues in Greater Sydney.")
 st.markdown("---")
 
+# Links to GitHub and Colab
+st.markdown('[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/12xvCIPyhirh0Q1bNXtO_e6jN5wZmzaBi?usp=sharing)')
+st.markdown('[![GitHub Repo](https://img.shields.io/badge/GitHub-fast_food-blue?logo=github)](https://github.com/basanta11/fast_food)')
+
 # ------------------- LOAD & PREP DATA ------------------
 
 
